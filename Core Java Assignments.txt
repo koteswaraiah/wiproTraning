@@ -1,0 +1,1207 @@
+Core Java Assignments
+--------------------------------------------------------------------------------------------------
+
+1. WAP to find the average and sum of the N numbers Using Command line argument.
+
+ANS:
+
+class SumAverage {
+    public static void main(String[] args) {
+        // Check if arguments are provided
+        if (args.length == 0) {
+            System.out.println("Please provide numbers as command line arguments.");
+            return;
+        }
+
+        int sum = 0;
+
+        // Loop through command line arguments
+        for (int i = 0; i < args.length; i++) {
+            sum += Integer.parseInt(args[i]); // Convert string to integer
+        }
+
+        double average = (double) sum / args.length;
+
+        System.out.println("Sum = " + sum);
+        System.out.println("Average = " + average);
+    }
+}
+
+run program in command line:
+
+cd path\to\your\java\file
+javac SumAverage.java
+java SumAverage 10 20 30 40 50
+
+OutPut:
+
+Sum = 150
+Average = 30.0
+
+---------------------------------------------------------------------------------------------------------
+
+2.WAP to Demonstrate Type Casting
+
+ANS: 
+
+class TypeCastingDemo {
+    public static void main(String[] args) {
+        // Implicit Type Casting (Widening Conversion)
+        int intVal = 100;
+        double doubleVal = intVal; // int automatically converted to double
+        System.out.println("Implicit Casting (int → double): " + doubleVal);
+
+        // Explicit Type Casting (Narrowing Conversion)
+        double d = 99.99;
+        int i = (int) d; // double explicitly converted to int
+        System.out.println("Explicit Casting (double → int): " + i);
+
+        // Another example: char to int
+        char ch = 'A';
+        int ascii = (int) ch; // explicit cast
+        System.out.println("Explicit Casting (char → int): " + ascii);
+
+        // Example of widening: float to double
+        float f = 12.5f;
+        double widened = f; // implicit
+        System.out.println("Implicit Casting (float → double): " + widened);
+    }
+}
+
+OutPut:
+
+Implicit Casting (int → double): 100.0
+Explicit Casting (double → int): 99
+Explicit Casting (char → int): 65
+Implicit Casting (float → double): 12.5
+
+-----------------------------------------------------------------------------------------
+
+3. WAP to find the number of arguments provide at runtime.
+ANS:
+import java.util.Scanner;
+
+class PrintNumbers {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Ask how many numbers
+        System.out.print("Enter how many numbers: ");
+        int n = sc.nextInt();
+
+        // Read n numbers from user
+        int[] numbers = new int[n];
+        for (int i = 0; i < n; i++) {
+            System.out.print("Enter number " + (i+1) + ": ");
+            numbers[i] = sc.nextInt();
+        }
+
+        // Just print the numbers entered
+        System.out.println("You entered:");
+        for (int i = 0; i < n; i++) {
+            System.out.println("Number " + (i+1) + ": " + numbers[i]);
+        }
+
+        sc.close();
+    }
+}
+
+OutPut:
+
+Enter how many numbers: 3
+Enter number 1: 10
+Enter number 2: 20
+Enter number 3: 30
+You entered:
+Number 1: 10
+Number 2: 20
+Number 3: 30
+
+----------------------------------------------------------------------------------------------------
+
+4. WAP to Test the Prime number.
+
+ANS:
+
+import java.util.Scanner;
+
+class PrimeTest {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter a number: ");
+        int num = sc.nextInt();
+
+        boolean isPrime = true;
+
+        if (num <= 1) {
+            isPrime = false; // 0 and 1 are not prime
+        } else {
+            // check divisibility up to sqrt(num)
+            for (int i = 2; i <= Math.sqrt(num); i++) {
+                if (num % i == 0) {
+                    isPrime = false;
+                    break;
+                }
+            }
+        }
+
+        if (isPrime) {
+            System.out.println(num + " is a Prime number.");
+        } else {
+            System.out.println(num + " is NOT a Prime number.");
+        }
+
+        sc.close();
+    }
+}
+
+OutPut:
+
+Enter a number: 17
+17 is a Prime number.
+
+--------------------------------------------------------------------------------------------------
+
+5.WAP to calculate the Simple Interest and Input by the user.
+
+ANS:
+
+import java.util.Scanner;
+
+class SimpleInterest {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Input principal, rate, and time
+        System.out.print("Enter Principal amount: ");
+        double principal = sc.nextDouble();
+
+        System.out.print("Enter Rate of Interest (per annum): ");
+        double rate = sc.nextDouble();
+
+        System.out.print("Enter Time (in years): ");
+        double time = sc.nextDouble();
+
+        // Formula: SI = (P × R × T) / 100
+        double simpleInterest = (principal * rate * time) / 100;
+
+        // Output
+        System.out.println("Simple Interest = " + simpleInterest);
+
+        sc.close();
+    }
+}
+
+OutPut:
+
+Enter Principal amount: 1000
+Enter Rate of Interest (per annum): 5
+Enter Time (in years): 2
+Simple Interest = 100.0
+
+---------------------------------------------------------------------------------------------------
+
+
+6. WAP to create a Simple class to find out the Area and perimeter of rectangle and box using super and this keyword.
+
+ANS:
+
+// Parent class: Rectangle
+class Rectangle {
+    int length, breadth;
+
+    // Constructor
+    Rectangle(int length, int breadth) {
+        this.length = length;   // 'this' refers to current object
+        this.breadth = breadth;
+    }
+
+    // Method to calculate area
+    int area() {
+        return length * breadth;
+    }
+
+    // Method to calculate perimeter
+    int perimeter() {
+        return 2 * (length + breadth);
+    }
+}
+
+// Child class: Box extends Rectangle
+class Box extends Rectangle {
+    int height;
+
+    // Constructor using super to call parent constructor
+    Box(int length, int breadth, int height) {
+        super(length, breadth);   // call Rectangle constructor
+        this.height = height;     // 'this' refers to current Box object
+    }
+
+    // Method to calculate volume
+    int volume() {
+        return length * breadth * height;
+    }
+
+    // Method to calculate surface area of box
+    int surfaceArea() {
+        return 2 * (length * breadth + breadth * height + length * height);
+    }
+}
+
+// Main class
+public class AreaPerimeterDemo {
+    public static void main(String[] args) {
+        // Create Rectangle object
+        Rectangle rect = new Rectangle(10, 5);
+        System.out.println("Rectangle Area = " + rect.area());
+        System.out.println("Rectangle Perimeter = " + rect.perimeter());
+
+        // Create Box object
+        Box box = new Box(10, 5, 3);
+        System.out.println("Box Volume = " + box.volume());
+        System.out.println("Box Surface Area = " + box.surfaceArea());
+    }
+}
+
+OutPut:
+
+Rectangle Area = 50
+Rectangle Perimeter = 30
+Box Volume = 150
+Box Surface Area = 190
+
+---------------------------------------------------------------------------------------------------------
+
+7. WAP to design a class account using the inheritance and static that show all function of bank (withrowal deposite).
+
+ANS:
+
+import java.util.Scanner;
+
+// Base class
+class Account {
+    protected int accNo;
+    protected String name;
+    protected double balance;
+
+    // Static variable to track total accounts
+    static int totalAccounts = 0;
+
+    // Constructor
+    Account(int accNo, String name, double balance) {
+        this.accNo = accNo;
+        this.name = name;
+        this.balance = balance;
+        totalAccounts++; // increment whenever a new account is created
+    }
+
+    // Deposit method
+    public void deposit(double amount) {
+        balance += amount;
+        System.out.println("Deposited: " + amount);
+        System.out.println("Updated Balance: " + balance);
+    }
+
+    // Withdraw method
+    public void withdraw(double amount) {
+        if (amount <= balance) {
+            balance -= amount;
+            System.out.println("Withdrawn: " + amount);
+            System.out.println("Updated Balance: " + balance);
+        } else {
+            System.out.println("Insufficient Balance!");
+        }
+    }
+
+    // Display account details
+    public void display() {
+        System.out.println("Account No: " + accNo);
+        System.out.println("Name: " + name);
+        System.out.println("Balance: " + balance);
+    }
+
+    // Static method to show total accounts
+    public static void showTotalAccounts() {
+        System.out.println("Total Accounts Created: " + totalAccounts);
+    }
+}
+
+// Derived class: SavingsAccount
+class SavingsAccount extends Account {
+    private double interestRate;
+
+    SavingsAccount(int accNo, String name, double balance, double interestRate) {
+        super(accNo, name, balance); // call parent constructor
+        this.interestRate = interestRate;
+    }
+
+    // Add interest
+    public void addInterest() {
+        double interest = balance * interestRate / 100;
+        balance += interest;
+        System.out.println("Interest Added: " + interest);
+        System.out.println("Updated Balance: " + balance);
+    }
+}
+
+// Main class
+public class BankDemo {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Create a Savings Account
+        System.out.print("Enter Account No: ");
+        int accNo = sc.nextInt();
+        sc.nextLine(); // consume newline
+        System.out.print("Enter Name: ");
+        String name = sc.nextLine();
+        System.out.print("Enter Initial Balance: ");
+        double balance = sc.nextDouble();
+        System.out.print("Enter Interest Rate: ");
+        double rate = sc.nextDouble();
+
+        SavingsAccount sa = new SavingsAccount(accNo, name, balance, rate);
+
+        // Perform operations
+        sa.display();
+        sa.deposit(500);
+        sa.withdraw(200);
+        sa.addInterest();
+
+        // Show total accounts created
+        Account.showTotalAccounts();
+
+        sc.close();
+    }
+}
+
+OutPut:
+
+Enter Account No: 101
+Enter Name: Ravi
+Enter Initial Balance: 1000
+Enter Interest Rate: 5
+Account No: 101
+Name: Ravi
+Balance: 1000.0
+Deposited: 500.0
+Updated Balance: 1500.0
+Withdrawn: 200.0
+Updated Balance: 1300.0
+Interest Added: 65.0
+Updated Balance: 1365.0
+Total Accounts Created: 1
+
+-------------------------------------------------------------------------------------------
+
+8. WAP to find the factorial of a given number using Recursion.
+
+ANS:
+
+import java.util.Scanner;
+
+class FactorialRecursion {
+    // Recursive method
+    static long factorial(int n) {
+        if (n == 0 || n == 1) {
+            return 1;  // base case
+        } else {
+            return n * factorial(n - 1);  // recursive call
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter a number: ");
+        int num = sc.nextInt();
+
+        long result = factorial(num);
+
+        System.out.println("Factorial of " + num + " = " + result);
+
+        sc.close();
+    }
+}
+
+OutPut:
+
+Enter a number: 5
+Factorial of 5 = 120
+
+---------------------------------------------------------------------------------------------------
+
+9. WAP to design a class using abstract Methods and Classes
+
+ANS:
+
+// Abstract class
+abstract class Shape {
+    // Abstract methods (no body)
+    abstract double area();
+    abstract double perimeter();
+
+    // Concrete method (with body)
+    void display() {
+        System.out.println("This is a shape.");
+    }
+}
+
+// Rectangle class extends Shape
+class Rectangle extends Shape {
+    double length, breadth;
+
+    Rectangle(double length, double breadth) {
+        this.length = length;
+        this.breadth = breadth;
+    }
+
+    // Implement abstract methods
+    double area() {
+        return length * breadth;
+    }
+
+    double perimeter() {
+        return 2 * (length + breadth);
+    }
+}
+
+// Circle class extends Shape
+class Circle extends Shape {
+    double radius;
+
+    Circle(double radius) {
+        this.radius = radius;
+    }
+
+    // Implement abstract methods
+    double area() {
+        return Math.PI * radius * radius;
+    }
+
+    double perimeter() {
+        return 2 * Math.PI * radius;
+    }
+}
+
+// Main class
+public class AbstractDemo {
+    public static void main(String[] args) {
+        // Create Rectangle object
+        Shape rect = new Rectangle(10, 5);
+        rect.display();
+        System.out.println("Rectangle Area = " + rect.area());
+        System.out.println("Rectangle Perimeter = " + rect.perimeter());
+
+        // Create Circle object
+        Shape circle = new Circle(7);
+        circle.display();
+        System.out.println("Circle Area = " + circle.area());
+        System.out.println("Circle Perimeter = " + circle.perimeter());
+    }
+}
+
+OutPut:
+
+This is a shape.
+Rectangle Area = 50.0
+Rectangle Perimeter = 30.0
+This is a shape.
+Circle Area = 153.93804002589985
+Circle Perimeter = 43.982297150257104
+
+---------------------------------------------------------------------------------------------------------
+
+10. WAP to design a String class that perform String Method(Equal, Reverse the string.change case).
+
+ANS:
+
+import java.util.Scanner;
+
+// Custom String class
+class MyString {
+    private String str;
+
+    // Constructor
+    MyString(String str) {
+        this.str = str;
+    }
+
+    // Method to check equality
+    public boolean isEqual(MyString other) {
+        return this.str.equals(other.str);
+    }
+
+    // Method to reverse the string
+    public String reverse() {
+        StringBuilder sb = new StringBuilder(str);
+        return sb.reverse().toString();
+    }
+
+    // Method to change case
+    public String changeCase() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            if (Character.isUpperCase(ch)) {
+                sb.append(Character.toLowerCase(ch));
+            } else if (Character.isLowerCase(ch)) {
+                sb.append(Character.toUpperCase(ch));
+            } else {
+                sb.append(ch); // keep non-alphabetic characters unchanged
+            }
+        }
+        return sb.toString();
+    }
+
+    // Getter
+    public String getString() {
+        return str;
+    }
+}
+
+// Main class
+public class StringDemo {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Input two strings
+        System.out.print("Enter first string: ");
+        MyString s1 = new MyString(sc.nextLine());
+
+        System.out.print("Enter second string: ");
+        MyString s2 = new MyString(sc.nextLine());
+
+        // Equality check
+        if (s1.isEqual(s2)) {
+            System.out.println("Strings are equal.");
+        } else {
+            System.out.println("Strings are NOT equal.");
+        }
+
+        // Reverse first string
+        System.out.println("Reverse of first string: " + s1.reverse());
+
+        // Change case of second string
+        System.out.println("Change case of second string: " + s2.changeCase());
+
+        sc.close();
+    }
+}
+
+OutPut:
+
+Enter first string: Hello
+Enter second string: HELLO
+Strings are NOT equal.
+Reverse of first string: olleH
+Change case of second string: hello
+
+-------------------------------------------------------------------------------------------------------
+
+
+11. WAP to handle the Exception using try and multiple catch block.
+
+ans:
+import java.util.Scanner;
+
+class ExceptionDemo {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        try {
+            // Input two numbers
+            System.out.print("Enter first number: ");
+            int num1 = sc.nextInt();
+
+            System.out.print("Enter second number: ");
+            int num2 = sc.nextInt();
+
+            // Division operation
+            int result = num1 / num2;
+            System.out.println("Result = " + result);
+
+            // Accessing array element
+            int[] arr = {10, 20, 30};
+            System.out.print("Enter array index (0-2): ");
+            int index = sc.nextInt();
+            System.out.println("Array element = " + arr[index]);
+
+        } 
+        // Catch block for ArithmeticException
+        catch (ArithmeticException e) {
+            System.out.println("Error: Division by zero is not allowed.");
+        } 
+        // Catch block for ArrayIndexOutOfBoundsException
+        catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Error: Invalid array index.");
+        } 
+        // Catch block for InputMismatchException
+        catch (java.util.InputMismatchException e) {
+            System.out.println("Error: Please enter valid integers.");
+        } 
+        // Generic catch block for any other exception
+        catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        sc.close();
+    }
+}
+
+OutPut:
+
+Enter first number: 10
+Enter second number: 0
+Error: Division by zero is not allowed.
+
+
+Enter first number: 10
+Enter second number: 2
+Result = 5
+Enter array index (0-2): 5
+Error: Invalid array index.
+
+Enter first number: abc
+Error: Please enter valid integers.
+
+
+-------------------------------------------------------------------------------------------------------
+
+12. WAP that Implement the Nested try Statements.
+
+ANS:
+
+import java.util.Scanner;
+
+class NestedTryDemo {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        try {
+            // Outer try block
+            System.out.print("Enter an integer: ");
+            int num = sc.nextInt();
+
+            try {
+                // Inner try block 1: division
+                System.out.print("Enter divisor: ");
+                int divisor = sc.nextInt();
+                int result = num / divisor;
+                System.out.println("Result = " + result);
+            } catch (ArithmeticException e) {
+                System.out.println("Error: Division by zero is not allowed.");
+            }
+
+            try {
+                // Inner try block 2: array access
+                int[] arr = {10, 20, 30};
+                System.out.print("Enter array index (0-2): ");
+                int index = sc.nextInt();
+                System.out.println("Array element = " + arr[index]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Error: Invalid array index.");
+            }
+
+        } catch (java.util.InputMismatchException e) {
+            System.out.println("Error: Please enter valid integers only.");
+        }
+
+        sc.close();
+    }
+}
+
+OutPut:
+
+Enter an integer: 10
+Enter divisor: 0
+Error: Division by zero is not allowed.
+Enter array index (0-2): 1
+Array element = 20
+
+Enter an integer: 15
+Enter divisor: 3
+Result = 5
+Enter array index (0-2): 5
+Error: Invalid array index.
+
+Enter an integer: abc
+Error: Please enter valid integers only.
+
+--------------------------------------------------------------------------------------------------------
+
+13. WAP to Create a package that access the member of external class as well as same package
+
+ANS:
+
+package bank;  // declare package
+
+public class Account {
+    private int accNo;
+    private String name;
+    protected double balance; // protected so accessible in same package and subclasses
+
+    public Account(int accNo, String name, double balance) {
+        this.accNo = accNo;
+        this.name = name;
+        this.balance = balance;
+    }
+
+    public void display() {
+        System.out.println("Account No: " + accNo);
+        System.out.println("Name: " + name);
+        System.out.println("Balance: " + balance);
+    }
+}
+
+package bank;
+
+public class Transaction {
+    public void deposit(Account acc, double amount) {
+        acc.balance += amount; // accessing protected member in same package
+        System.out.println("Deposited: " + amount);
+        System.out.println("Updated Balance: " + acc.balance);
+    }
+}
+
+import bank.Account;     // import external class
+import bank.Transaction; // import same package classes
+
+public class BankDemo {
+    public static void main(String[] args) {
+        Account acc = new Account(101, "Ravi", 1000);
+        acc.display();
+
+        Transaction t = new Transaction();
+        t.deposit(acc, 500); // accessing member via same package class
+    }
+}
+
+OutPut:
+
+Account No: 101
+Name: Ravi
+Balance: 1000.0
+Deposited: 500.0
+Updated Balance: 1500.0
+
+--------------------------------------------------------------------------------------------------------
+
+14. WAP that import the user define package and access the Member variable of classes that Contained by Package.
+
+ANS:
+
+package mypack;   // declare package
+
+public class Student {
+    public int rollNo;       // public member variable
+    public String name;
+
+    // Constructor
+    public Student(int rollNo, String name) {
+        this.rollNo = rollNo;
+        this.name = name;
+    }
+
+    // Method to display student details
+    public void display() {
+        System.out.println("Roll No: " + rollNo);
+        System.out.println("Name: " + name);
+    }
+}
+
+package mypack;
+
+public class Course {
+    public String courseName;
+
+    public Course(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public void showCourse() {
+        System.out.println("Course: " + courseName);
+    }
+}
+
+import mypack.Student;   // import user-defined package class
+import mypack.Course;    // import another class from same package
+
+public class PackageDemo {
+    public static void main(String[] args) {
+        // Create Student object
+        Student s = new Student(101, "Ravi");
+        System.out.println("Accessing Student class members:");
+        System.out.println("Roll No: " + s.rollNo);  // accessing member variable
+        System.out.println("Name: " + s.name);
+        s.display();
+
+        // Create Course object
+        Course c = new Course("Java Programming");
+        System.out.println("Accessing Course class members:");
+        System.out.println("Course Name: " + c.courseName);
+        c.showCourse();
+    }
+}
+
+OutPut:
+
+Accessing Student class members:
+Roll No: 101
+Name: Ravi
+Roll No: 101
+Name: Ravi
+Accessing Course class members:
+Course Name: Java Programming
+Course: Java Programming
+
+-------------------------------------------------------------------------------------------------------
+15. WAP that show the partial implementation of Interface.
+
+ANS:
+
+// Define an interface
+interface BankOperations {
+    void deposit(double amount);
+    void withdraw(double amount);
+    void checkBalance();
+}
+
+// Abstract class gives partial implementation
+abstract class PartialBank implements BankOperations {
+    protected double balance = 0;
+
+    // Implement deposit method
+    public void deposit(double amount) {
+        balance += amount;
+        System.out.println("Deposited: " + amount);
+    }
+
+    // Leave withdraw and checkBalance unimplemented (abstract)
+    // So this class remains abstract
+}
+
+// Concrete class completes the implementation
+class SavingsAccount extends PartialBank {
+    public void withdraw(double amount) {
+        if (amount <= balance) {
+            balance -= amount;
+            System.out.println("Withdrawn: " + amount);
+        } else {
+            System.out.println("Insufficient Balance!");
+        }
+    }
+
+    public void checkBalance() {
+        System.out.println("Current Balance: " + balance);
+    }
+}
+
+// Main class
+public class InterfaceDemo {
+    public static void main(String[] args) {
+        SavingsAccount sa = new SavingsAccount();
+        sa.deposit(1000);
+        sa.withdraw(300);
+        sa.checkBalance();
+    }
+}
+
+OutPut:
+
+Deposited: 1000.0
+Withdrawn: 300.0
+Current Balance: 700.0
+
+--------------------------------------------------------------------------------------------------------
+16. WAP to Handle the user defined Exception using throw keyword.
+
+ANS:
+// Custom Exception class
+class InvalidAgeException extends Exception {
+    public InvalidAgeException(String message) {
+        super(message);  // call parent constructor
+    }
+}
+
+public class UserDefinedExceptionDemo {
+    // Method to check age
+    static void checkAge(int age) throws InvalidAgeException {
+        if (age < 18) {
+            // explicitly throw user-defined exception
+            throw new InvalidAgeException("Age must be 18 or above to vote.");
+        } else {
+            System.out.println("Valid age. You can vote!");
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            // Test with invalid age
+            checkAge(15);
+
+            // Test with valid age
+            checkAge(25);
+
+        } catch (InvalidAgeException e) {
+            // Handle user-defined exception
+            System.out.println("Caught Exception: " + e.getMessage());
+        }
+    }
+}
+
+OutPut:
+
+Caught Exception: Age must be 18 or above to vote.
+Valid age. You can vote!
+
+---------------------------------------------------------------------------------------------------------
+17. WAP to create a thread that Implement the Bunable interface.
+
+ANS:
+
+// Class that implements Runnable interface
+class MyThread implements Runnable {
+    private String threadName;
+
+    MyThread(String name) {
+        this.threadName = name;
+    }
+
+    // Override run() method
+    public void run() {
+        for (int i = 1; i <= 5; i++) {
+            System.out.println(threadName + " is running, count: " + i);
+            try {
+                Thread.sleep(500); // pause for 0.5 seconds
+            } catch (InterruptedException e) {
+                System.out.println(threadName + " interrupted.");
+            }
+        }
+        System.out.println(threadName + " finished.");
+    }
+}
+
+// Main class
+public class RunnableDemo {
+    public static void main(String[] args) {
+        // Create Runnable objects
+        MyThread t1 = new MyThread("Thread-1");
+        MyThread t2 = new MyThread("Thread-2");
+
+        // Wrap Runnable objects in Thread class
+        Thread thread1 = new Thread(t1);
+        Thread thread2 = new Thread(t2);
+
+        // Start threads
+        thread1.start();
+        thread2.start();
+    }
+}
+
+OutPut:
+
+Thread-1 is running, count: 1
+Thread-2 is running, count: 1
+Thread-1 is running, count: 2
+Thread-2 is running, count: 2
+...
+Thread-1 finished.
+Thread-2 finished.
+
+---------------------------------------------------------------------------------------------------------
+
+18. WAP to Implement Interthread communication
+
+ANS:
+
+// Shared resource class
+class SharedResource {
+    private int data;
+    private boolean hasData = false;
+
+    // Producer puts data
+    public synchronized void produce(int value) {
+        while (hasData) {
+            try {
+                wait(); // wait until consumer consumes
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        data = value;
+        hasData = true;
+        System.out.println("Produced: " + value);
+        notify(); // notify consumer
+    }
+
+    // Consumer gets data
+    public synchronized void consume() {
+        while (!hasData) {
+            try {
+                wait(); // wait until producer produces
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("Consumed: " + data);
+        hasData = false;
+        notify(); // notify producer
+    }
+}
+
+// Producer thread
+class Producer implements Runnable {
+    private SharedResource resource;
+
+    Producer(SharedResource resource) {
+        this.resource = resource;
+    }
+
+    public void run() {
+        for (int i = 1; i <= 5; i++) {
+            resource.produce(i);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+// Consumer thread
+class Consumer implements Runnable {
+    private SharedResource resource;
+
+    Consumer(SharedResource resource) {
+        this.resource = resource;
+    }
+
+    public void run() {
+        for (int i = 1; i <= 5; i++) {
+            resource.consume();
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+// Main class
+public class InterThreadDemo {
+    public static void main(String[] args) {
+        SharedResource resource = new SharedResource();
+
+        Thread producerThread = new Thread(new Producer(resource));
+        Thread consumerThread = new Thread(new Consumer(resource));
+
+        producerThread.start();
+        consumerThread.start();
+    }
+}
+
+OutPut:
+
+Produced: 1
+Consumed: 1
+Produced: 2
+Consumed: 2
+Produced: 3
+Consumed: 3
+Produced: 4
+Consumed: 4
+Produced: 5
+Consumed: 5
+
+----------------------------------------------------------------------------------------------------
+
+19. WAP to demonstrate System clock.
+
+ANS:
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.Clock;
+
+public class SystemClockDemo {
+    public static void main(String[] args) {
+        // Using System.currentTimeMillis()
+        long millis = System.currentTimeMillis();
+        System.out.println("Current time in milliseconds since Jan 1, 1970: " + millis);
+
+        // Using System.nanoTime()
+        long nanos = System.nanoTime();
+        System.out.println("Current time in nanoseconds (for measuring elapsed time): " + nanos);
+
+        // Using java.time.LocalDateTime (modern API)
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        System.out.println("Formatted current date and time: " + now.format(formatter));
+
+        // Using Clock class
+        Clock clock = Clock.systemDefaultZone();
+        System.out.println("Clock instant: " + clock.instant());
+    }
+}
+
+OutPut:
+
+Current time in milliseconds since Jan 1, 1970: 1764578580000
+Current time in nanoseconds (for measuring elapsed time): 123456789012345
+Formatted current date and time: 01-12-2025 12:13:00
+Clock instant: 2025-12-01T06:43:00Z
+
+--------------------------------------------------------------------------------------------------------
+
+20. WAP to create Frame that display the student information.
+
+ANS:
+
+import javax.swing.*;  
+import java.awt.*;  
+
+public class StudentFrame extends JFrame {  
+    public StudentFrame() {  
+        // Set frame title
+        setTitle("Student Information");  
+
+        // Set layout
+        setLayout(new GridLayout(4, 2, 10, 10));  
+
+        // Create labels and text fields
+        JLabel lblRoll = new JLabel("Roll No:");  
+        JTextField txtRoll = new JTextField();  
+
+        JLabel lblName = new JLabel("Name:");  
+        JTextField txtName = new JTextField();  
+
+        JLabel lblCourse = new JLabel("Course:");  
+        JTextField txtCourse = new JTextField();  
+
+        JLabel lblMarks = new JLabel("Marks:");  
+        JTextField txtMarks = new JTextField();  
+
+        // Add components to frame
+        add(lblRoll);  
+        add(txtRoll);  
+        add(lblName);  
+        add(txtName);  
+        add(lblCourse);  
+        add(txtCourse);  
+        add(lblMarks);  
+        add(txtMarks);  
+
+        // Frame settings
+        setSize(400, 200);  
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
+        setVisible(true);  
+    }  
+
+    public static void main(String[] args) {  
+        new StudentFrame();  
+    }  
+}
