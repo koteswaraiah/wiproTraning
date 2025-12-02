@@ -1,4 +1,4 @@
-Core Java Assignmentsss
+Core Java 
 --------------------------------------------------------------------------------------------------
 
 1. WAP to find the average and sum of the N numbers Using Command line argument.
